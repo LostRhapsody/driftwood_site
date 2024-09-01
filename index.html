@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driftwood - Effortless Blogging for Everyone</title>
+    <style>
+        :root {
+            --blue: #3498db;
+            --khaki: #c3b091;
+            --dark-bg: #1a1a1a;
+            --text: #f0f0f0;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
+            color: var(--text);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+        }
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: var(--blue);
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .github-link svg {
+            width: 24px;
+            height: 24px;
+        }
+        .hero {
+            background-image: url('https://images.unsplash.com/photo-1506968430777-bf7784a87f23?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            font-size: 8rem;
+            margin-bottom: 2em;
+            background: linear-gradient(45deg, var(--blue), var(--khaki));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 2em;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        .waitlist-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+        .waitlist-form input,
+        .waitlist-form button {
+            padding: 15px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+        }
+        .waitlist-form input {
+            flex-grow: 1;
+            color: var(--text);
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(1px);
+        }
+        .waitlist-form input::placeholder {
+            color: rgba(240, 240, 240, 0.7);
+        }
+        .waitlist-form button {
+            background: rgba(52, 152, 219, 0.3);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(1px);
+            box-shadow: inset 0 0px 5px 5px rgb(52 152 219 / 50%)
+        }
+        .waitlist-form button:hover {
+            background: rgba(52, 152, 219, 0.5);
+            transform: translateY(-2px);
+            box-shadow: inset 0 0px 5px 5px rgb(52 152 219 / 50%)
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 100px 0;
+        }
+        .features h2 {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .feature {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+        .feature h3 {
+            color: var(--khaki);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .cta-section {
+            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+        }
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+        .contact-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        .contact-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--text);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        .contact-form button {
+            background: var(--blue);
+            color: var(--text);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .contact-form button:hover {
+            background-color: #2980b9;
+        }
+        footer {
+            background: var(--dark-bg);
+            padding: 40px 0;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .footer-pill {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+        }
+        a {
+            text-decoration: none;
+            color: var(--text);
+        }
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            h1 {
+                font-size: 4rem;
+            }
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, var(--blue), var(--khaki));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Driftwood</a>
+            <div class="nav-links">
+                <a href="#waitlist">Waitlist</a>
+                <a href="#features">Features</a>
+                <a href="#contact">Contact</a>
+                <a href="https://github.com/LostRhapsody/driftwood" class="github-link" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content" id="waitlist">
+            <h1>Driftwood</h1>
+            <p class="subtitle">The easiest build-your-own blog. <span class="gradient-text">Ever.</span></p>
+            <p>Sign up for the waitlist to be the first to get 1.0 access. Or, request early access <a href="#early-access" class="gradient-text">here</a>.</p>
+            <form class="waitlist-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Join Waitlist</button>
+            </form>
+        </div>
+    </section>
+    
+    <div id="features"></div>
+    <main class="container">
+        <section class="features">
+            <h2>Everything you need to start a blog</h2>
+            <div class="feature">
+                <h3>Easy Setup</h3>
+                <p>Start the app. One click to create and deploy your blog. That easy.</p>
+            </div>
+            <div class="feature">
+                <h3>Markdown Magic</h3>
+                <p>All the post content is written in Markdown. This means you can use any text editor to write your posts. Or, our built-in editor.</p>
+            </div>
+            <div class="feature">
+                <h3>Rust-Powered</h3>
+                <p>Written in Rust, a fast and efficient programming language for a smooth user experience.</p>
+            </div>
+            <div class="feature">
+                <h3>Open Source</h3>
+                <p>Fully open source. Contribute, customize, and make it your own. Create your own blog templates, too!</p>
+            </div>
+            <div class="feature">
+                <h3>Desktop App</h3>
+                <p>A sleek, native desktop application for a smooth writing experience. No web-app shenanigans.</p>
+            </div>
+            <div class="feature">
+                <h3>Custom Templates</h3>
+                <p>Create your own templates or choose from our store. Your blog, your style.</p>
+            </div>
+            <div class="feature">
+                <h3>WYSIWYG Editor</h3>
+                <p>What you see is what you get. Edit your blog visually with our intuitive editor.</p>
+            </div>
+            <div class="feature">
+                <h3>One-Click Deploy</h3>
+                <p>Deploy your site to the web with a single click. No technical knowledge required.</p>
+            </div>
+            <div class="feature">
+                <h3>Bring your own domain</h3>
+                <p>Use your own domain or use one from a supported provider (currently Netlify).</p>
+            </div>
+        </section>
+    </main>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 id="early-access">Ready to try it before release?</h2>
+            <form class="waitlist-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Get Early Access</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-pill"><a href="https://evanrobertson.dev">© 2024 Evan Robertson</a></div>
+                <div class="footer-pill">evan.robertson77@gmail.com</div>
+                <div class="footer-pill">Made with ❤️</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
